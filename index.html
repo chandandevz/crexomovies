@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interstellar (2014) — Download</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0a0a0f;
+    --surface:  #12121a;
+    --card:     #1a1a26;
+    --border:   rgba(255,255,255,.07);
+    --gold:     #f5c518;
+    --gold-dim: #b8941a;
+    --blue:     #4fc3f7;
+    --green:    #00e676;
+    --red:      #ff5252;
+    --text:     #e8e8f0;
+    --muted:    #6b6b85;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO BACKDROP ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 3rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1800&auto=format&fit=crop&q=80')
+      center/cover no-repeat;
+    filter: brightness(.35) saturate(1.2);
+    transform: scale(1.04);
+    animation: slow-zoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes slow-zoom {
+    from { transform: scale(1.04); }
+    to   { transform: scale(1.12); }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, var(--bg) 0%, rgba(10,10,15,.6) 40%, transparent 80%),
+      linear-gradient(to right, rgba(10,10,15,.9) 0%, transparent 60%);
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(10,10,15,.9), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: .08em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO CONTENT ── */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+  }
+  .genre-tags { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .tag {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: .25rem .7rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255,255,255,.15);
+    color: var(--muted);
+  }
+  .tag.highlight { border-color: var(--gold); color: var(--gold); }
+
+  .movie-title {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    line-height: .95;
+    letter-spacing: .03em;
+    color: #fff;
+    margin-bottom: .4rem;
+  }
+  .movie-year {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--gold);
+    letter-spacing: .12em;
+    margin-bottom: 1rem;
+  }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .6rem 1.2rem;
+    margin-bottom: 1.4rem;
+  }
+  .imdb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--gold);
+    color: #000;
+    font-size: .78rem;
+    font-weight: 800;
+    padding: .3rem .65rem;
+    border-radius: .3rem;
+  }
+  .meta-item {
+    font-size: .8rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+  }
+  .meta-item::before {
+    content: '•';
+    color: rgba(255,255,255,.2);
+    display: none;
+  }
+  .meta-item + .meta-item::before { display: inline; }
+
+  .synopsis {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: rgba(232,232,240,.75);
+    max-width: 560px;
+    margin-bottom: 2rem;
+  }
+
+  /* ── DOWNLOAD SECTION ── */
+  .download-box {
+    background: rgba(26,26,38,.75);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.6rem;
+    backdrop-filter: blur(18px);
+    max-width: 580px;
+  }
+  .download-box h3 {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .quality-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .75rem;
+    margin-bottom: 1rem;
+  }
+
+  .q-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+    padding: .9rem .5rem;
+    border-radius: .75rem;
+    border: 1.5px solid var(--border);
+    background: rgba(255,255,255,.03);
+    cursor: pointer;
+    transition: all .22s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+    font-family: var(--body);
+  }
+  .q-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .q-btn:hover { transform: translateY(-2px); }
+  .q-btn:active { transform: translateY(0) scale(.97); }
+
+  /* 480p — standard */
+  .q-480 { border-color: rgba(107,107,133,.4); }
+  .q-480::before { background: linear-gradient(135deg, rgba(107,107,133,.15), transparent); }
+  .q-480:hover { border-color: #6b6b85; box-shadow: 0 4px 20px rgba(107,107,133,.25); }
+  .q-480:hover::before { opacity: 1; }
+
+  /* 720p — HD blue */
+  .q-720 { border-color: rgba(79,195,247,.35); }
+  .q-720::before { background: linear-gradient(135deg, rgba(79,195,247,.12), transparent); }
+  .q-720:hover { border-color: var(--blue); box-shadow: 0 4px 24px rgba(79,195,247,.3); }
+  .q-720:hover::before { opacity: 1; }
+
+  /* 1080p — gold FHD */
+  .q-1080 { border-color: rgba(245,197,24,.35); }
+  .q-1080::before { background: linear-gradient(135deg, rgba(245,197,24,.12), transparent); }
+  .q-1080:hover { border-color: var(--gold); box-shadow: 0 4px 28px rgba(245,197,24,.35); }
+  .q-1080:hover::before { opacity: 1; }
+
+  .q-label {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    line-height: 1;
+    letter-spacing: .05em;
+  }
+  .q-480 .q-label { color: #9090aa; }
+  .q-720 .q-label { color: var(--blue); }
+  .q-1080 .q-label { color: var(--gold); }
+
+  .q-badge {
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .18rem .5rem;
+    border-radius: 2rem;
+  }
+  .q-480 .q-badge { background: rgba(107,107,133,.2); color: #9090aa; }
+  .q-720 .q-badge { background: rgba(79,195,247,.15); color: var(--blue); }
+  .q-1080 .q-badge { background: rgba(245,197,24,.15); color: var(--gold); }
+
+  .q-size { font-size: .72rem; color: var(--muted); }
+
+  .q-dl-icon {
+    position: absolute;
+    bottom: .45rem; right: .55rem;
+    font-size: .65rem;
+    color: rgba(255,255,255,.2);
+  }
+
+  /* BEST VALUE badge on 1080p */
+  .best-badge {
+    position: absolute;
+    top: -.1rem; right: -.1rem;
+    background: var(--gold);
+    color: #000;
+    font-size: .52rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .2rem .45rem;
+    border-radius: 0 .75rem 0 .45rem;
+  }
+
+  /* ── PROGRESS MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,15,.85);
+    backdrop-filter: blur(12px);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+  }
+  .modal-overlay.show { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    padding: 2.2rem 2rem;
+    width: min(420px, 90vw);
+    text-align: center;
+    transform: scale(.92) translateY(20px);
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .modal-overlay.show .modal { transform: scale(1) translateY(0); }
+
+  .modal-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .modal h2 { font-family: var(--display); font-size: 2rem; letter-spacing: .06em; margin-bottom: .4rem; }
+  .modal-quality { color: var(--gold); }
+  .modal-sub { font-size: .85rem; color: var(--muted); margin-bottom: 1.8rem; line-height: 1.6; }
+
+  .progress-track {
+    height: 6px;
+    background: rgba(255,255,255,.08);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: .5rem;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--blue), var(--gold));
+    transition: width .25s linear;
+    position: relative;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,.4));
+    animation: shimmer .9s linear infinite;
+  }
+  @keyframes shimmer { from { opacity: 0; } 50% { opacity: 1; } to { opacity: 0; } }
+
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: .75rem;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+  }
+  .progress-pct { color: var(--text); font-weight: 600; }
+
+  .modal-btn {
+    display: inline-block;
+    padding: .75rem 2rem;
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    border-radius: .6rem;
+    font-family: var(--body);
+    font-size: .85rem;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .modal-btn:hover { border-color: var(--red); color: var(--red); }
+
+  .done-actions { display: none; flex-direction: column; gap: .75rem; margin-bottom: 1rem; }
+  .done-actions.show { display: flex; }
+  .btn-save {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: .85rem 1.5rem;
+    background: var(--green);
+    color: #000;
+    border: none;
+    border-radius: .65rem;
+    font-family: var(--body);
+    font-size: .92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+  }
+  .btn-save:hover { background: #33ff8a; transform: translateY(-1px); }
+  .btn-close-done {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: .65rem;
+    border-radius: .65rem;
+    font-family: var(--body);
+    font-size: .82rem;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-close-done:hover { border-color: var(--muted); color: var(--text); }
+
+  /* ── DETAILS SECTION ── */
+  .details-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .section-head {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    padding-bottom: .6rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: .6rem;
+    margin-bottom: 3rem;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: .65rem .9rem;
+    border-radius: .5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .info-key { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; flex-shrink: 0; }
+  .info-val { font-size: .82rem; color: var(--text); font-weight: 500; text-align: right; }
+
+  .quality-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .compare-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: .9rem;
+    padding: 1.4rem;
+    transition: border-color .2s;
+  }
+  .compare-card:hover { border-color: rgba(255,255,255,.15); }
+  .cc-quality {
+    font-family: var(--display);
+    font-size: 2rem;
+    margin-bottom: .5rem;
+  }
+  .cc-480 { color: #9090aa; }
+  .cc-720 { color: var(--blue); }
+  .cc-1080 { color: var(--gold); }
+  .cc-detail { font-size: .8rem; color: var(--muted); line-height: 1.65; }
+  .cc-detail strong { color: var(--text); }
+
+  /* ── SCREENSHOT STRIP ── */
+  .screenshots {
+    display: flex;
+    gap: .75rem;
+    overflow-x: auto;
+    padding-bottom: .5rem;
+    margin-bottom: 3rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .screenshots img {
+    width: 220px;
+    height: 124px;
+    object-fit: cover;
+    border-radius: .6rem;
+    flex-shrink: 0;
+    opacity: .8;
+    transition: opacity .2s, transform .2s;
+    cursor: pointer;
+    border: 1px solid var(--border);
+  }
+  .screenshots img:hover { opacity: 1; transform: scale(1.03); }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    background: linear-gradient(135deg, #12121a, #1a1a26);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .bottom-cta h3 { font-family: var(--display); font-size: 2rem; margin-bottom: .5rem; letter-spacing: .05em; }
+  .bottom-cta p { font-size: .85rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .bottom-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: .75rem; }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .75rem 1.5rem;
+    border-radius: .65rem;
+    font-family: var(--body);
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all .2s;
+    letter-spacing: .02em;
+  }
+  .dl-sd { background: rgba(107,107,133,.15); border: 1.5px solid rgba(107,107,133,.4); color: #9090aa; }
+  .dl-sd:hover { background: rgba(107,107,133,.25); }
+  .dl-hd { background: rgba(79,195,247,.12); border: 1.5px solid rgba(79,195,247,.4); color: var(--blue); }
+  .dl-hd:hover { background: rgba(79,195,247,.2); }
+  .dl-fhd { background: rgba(245,197,24,.12); border: 1.5px solid rgba(245,197,24,.4); color: var(--gold); }
+  .dl-fhd:hover { background: rgba(245,197,24,.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: .75rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .quality-grid { gap: .5rem; }
+    .q-label { font-size: 1.3rem; }
+    .download-box { padding: 1.2rem; }
+    .modal { padding: 1.6rem 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CineLoad</a>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Movies</a>
+    <a href="#">TV Shows</a>
+    <a href="#">Top Rated</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="genre-tags">
+      <span class="tag highlight">⭐ IMDB Top 250</span>
+      <span class="tag">Sci-Fi</span>
+      <span class="tag">Adventure</span>
+      <span class="tag">Drama</span>
+    </div>
+    <div class="movie-title">INTERSTELLAR</div>
+    <div class="movie-year">2014</div>
+    <div class="meta-row">
+      <span class="imdb-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        8.7 / 10
+      </span>
+      <span class="meta-item">2h 49m</span>
+      <span class="meta-item">PG-13</span>
+      <span class="meta-item">Christopher Nolan</span>
+      <span class="meta-item">English</span>
+    </div>
+    <p class="synopsis">
+      A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival. When Earth's future is threatened by devastating blight and famine, a former NASA pilot is recruited for a daring mission beyond our galaxy.
+    </p>
+
+    <!-- DOWNLOAD BOX -->
+    <div class="download-box">
+      <h3>⬇ Choose Download Quality</h3>
+      <div class="quality-grid">
+        <!-- 480p -->
+        <button class="q-btn q-480" onclick="startDownload('480p','SD','700 MB')">
+          <div class="q-label">480p</div>
+          <div class="q-badge">SD</div>
+          <div class="q-size">~ 700 MB</div>
+          <span class="q-dl-icon">⬇</span>
+        </button>
+        <!-- 720p -->
+        <button class="q-btn q-720" onclick="startDownload('720p','HD','1.4 GB')">
+          <div class="q-label">720p</div>
+          <div class="q-badge">HD</div>
+          <div class="q-size">~ 1.4 GB</div>
+          <span class="q-dl-icon">⬇</span>
+        </button>
+        <!-- 1080p -->
+        <button class="q-btn q-1080" onclick="startDownload('1080p','FHD','2.8 GB')">
+          <div class="best-badge">Best</div>
+          <div class="q-label">1080p</div>
+          <div class="q-badge">FHD</div>
+          <div class="q-size">~ 2.8 GB</div>
+          <span class="q-dl-icon">⬇</span>
+        </button>
+      </div>
+      <div style="font-size:.72rem;color:var(--muted);display:flex;gap:.9rem;flex-wrap:wrap;">
+        <span>🔒 Secure download</span>
+        <span>🚀 High-speed servers</span>
+        <span>✅ Virus-free verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<div class="details-section">
+
+  <!-- INFO TABLE -->
+  <div class="section-head">Movie Information</div>
+  <div class="info-grid">
+    <div class="info-row"><span class="info-key">Director</span><span class="info-val">Christopher Nolan</span></div>
+    <div class="info-row"><span class="info-key">Producer</span><span class="info-val">Emma Thomas</span></div>
+    <div class="info-row"><span class="info-key">Genre</span><span class="info-val">Sci-Fi, Adventure</span></div>
+    <div class="info-row"><span class="info-key">Release</span><span class="info-val">Nov 7, 2014</span></div>
+    <div class="info-row"><span class="info-key">Duration</span><span class="info-val">2h 49 min</span></div>
+    <div class="info-row"><span class="info-key">Country</span><span class="info-val">USA / UK</span></div>
+    <div class="info-row"><span class="info-key">Language</span><span class="info-val">English</span></div>
+    <div class="info-row"><span class="info-key">Rating</span><span class="info-val">PG-13</span></div>
+    <div class="info-row"><span class="info-key">Stars</span><span class="info-val">McConaughey, Hathaway</span></div>
+    <div class="info-row"><span class="info-key">Budget</span><span class="info-val">$165 Million</span></div>
+    <div class="info-row"><span class="info-key">Box Office</span><span class="info-val">$773 Million</span></div>
+    <div class="info-row"><span class="info-key">Format</span><span class="info-val">MKV / MP4</span></div>
+  </div>
+
+  <!-- QUALITY COMPARE -->
+  <div class="section-head">Quality Comparison</div>
+  <div class="quality-compare">
+    <div class="compare-card">
+      <div class="cc-quality cc-480">480p</div>
+      <div class="cc-detail">
+        <strong>Standard Definition</strong><br>
+        Resolution: 854 × 480<br>
+        Size: ~ 700 MB<br>
+        Best for: <strong>mobile data</strong>, slow connections<br>
+        Codec: H.264 · AAC Audio
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="cc-quality cc-720">720p</div>
+      <div class="cc-detail">
+        <strong>High Definition</strong><br>
+        Resolution: 1280 × 720<br>
+        Size: ~ 1.4 GB<br>
+        Best for: <strong>laptops</strong>, tablets<br>
+        Codec: H.264 · AC3 Audio
+      </div>
+    </div>
+    <div class="compare-card" style="border-color:rgba(245,197,24,.25);">
+      <div class="cc-quality cc-1080">1080p</div>
+      <div class="cc-detail">
+        <strong>Full HD — Recommended</strong><br>
+        Resolution: 1920 × 1080<br>
+        Size: ~ 2.8 GB<br>
+        Best for: <strong>TVs</strong>, monitors<br>
+        Codec: H.265 · DTS Audio
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREENSHOTS -->
+  <div class="section-head">Screenshots</div>
+  <div class="screenshots">
+    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=440&auto=format&fit=crop&q=75" alt="Scene 1" />
+    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=440&auto=format&fit=crop&q=75" alt="Scene 2" />
+    <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=440&auto=format&fit=crop&q=75" alt="Scene 3" />
+    <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=440&auto=format&fit=crop&q=75" alt="Scene 4" />
+    <img src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=440&auto=format&fit=crop&q=75" alt="Scene 5" />
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-cta">
+    <h3>Ready to Download?</h3>
+    <p>Pick your preferred quality below and enjoy the film.</p>
+    <div class="bottom-btns">
+      <button class="dl-btn dl-sd" onclick="startDownload('480p','SD','700 MB')">
+        ⬇ 480p &nbsp;<small style="opacity:.6">SD · 700 MB</small>
+      </button>
+      <button class="dl-btn dl-hd" onclick="startDownload('720p','HD','1.4 GB')">
+        ⬇ 720p &nbsp;<small style="opacity:.6">HD · 1.4 GB</small>
+      </button>
+      <button class="dl-btn dl-fhd" onclick="startDownload('1080p','FHD','2.8 GB')">
+        ⬇ 1080p &nbsp;<small style="opacity:.6">FHD · 2.8 GB</small>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 CineLoad · For demo purposes only · All movie rights belong to their respective owners.
+</footer>
+
+<!-- DOWNLOAD MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-icon" id="modalIcon">📡</div>
+    <h2>Downloading <span class="modal-quality" id="modalQuality">1080p</span></h2>
+    <p class="modal-sub" id="modalSub">Connecting to server… please wait.</p>
+
+    <div id="progressSection">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-row">
+        <span id="progressLabel">Preparing…</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <button class="modal-btn" onclick="cancelDownload()">✕ &nbsp;Cancel</button>
+    </div>
+
+    <div class="done-actions" id="doneActions">
+      <a href="#" class="btn-save" id="saveLink" onclick="closeModal()">
+        💾 &nbsp;Save File
+      </a>
+      <button class="btn-close-done" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let downloadTimer = null;
+  let currentPct = 0;
+
+  const stages = [
+    { pct: 8,  label: 'Connecting to server…' },
+    { pct: 18, label: 'Verifying file integrity…' },
+    { pct: 32, label: 'Allocating space…' },
+    { pct: 50, label: 'Downloading… 50%' },
+    { pct: 65, label: 'Buffering chunks…' },
+    { pct: 78, label: 'Downloading… 78%' },
+    { pct: 88, label: 'Almost there…' },
+    { pct: 95, label: 'Finalizing…' },
+    { pct:100, label: 'Download complete! ✅' },
+  ];
+
+  function startDownload(res, badge, size) {
+    currentPct = 0;
+    clearInterval(downloadTimer);
+
+    document.getElementById('modalQuality').textContent = res;
+    document.getElementById('modalSub').textContent =
+      `${badge} · ${size} · Interstellar.2014.${res}.mkv`;
+    document.getElementById('modalIcon').textContent = '📡';
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressPct').textContent = '0%';
+    document.getElementById('progressLabel').textContent = 'Preparing…';
+    document.getElementById('progressSection').style.display = 'block';
+    document.getElementById('doneActions').classList.remove('show');
+
+    const overlay = document.getElementById('modalOverlay');
+    overlay.classList.add('show');
+
+    let stageIdx = 0;
+    downloadTimer = setInterval(() => {
+      if (stageIdx >= stages.length) {
+        clearInterval(downloadTimer);
+        // show done state
+        document.getElementById('modalIcon').textContent = '✅';
+        document.getElementById('progressSection').style.display = 'none';
+        document.getElementById('doneActions').classList.add('show');
+        document.getElementById('modalSub').textContent =
+          `Interstellar.2014.${res}.mkv saved successfully!`;
+        return;
+      }
+      const { pct, label } = stages[stageIdx];
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '%';
+      document.getElementById('progressLabel').textContent = label;
+      stageIdx++;
+    }, 520);
+  }
+
+  function cancelDownload() {
+    clearInterval(downloadTimer);
+    closeModal();
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+  }
+
+  // close on backdrop click
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) cancelDownload();
+  });
+</script>
+</body>
+</html>

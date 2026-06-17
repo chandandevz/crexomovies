@@ -34,6 +34,12 @@
     overflow-x: hidden;
   }
 
+  /* banner code */
+  .banner-design{
+    width: 100%;
+    overflow: hidden;
+  }
+
   /* ── HERO BACKDROP ── */
   .hero {
     position: relative;
@@ -535,63 +541,6 @@
     margin: 0 auto;
   }
 
-  /* ── IMAGE POPUP (new) ── */
-  .image-popup-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(8px);
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-  .image-popup-overlay.show {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .image-popup-container {
-    position: relative;
-    width: 90vw;
-    height: 90vh;
-    max-width: 1200px;
-    max-height: 800px;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  }
-  .image-popup-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    background: #000;
-  }
-  .image-popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0,0,0,0.6);
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s;
-    line-height: 1;
-  }
-  .image-popup-close:hover {
-    background: rgba(255,255,255,0.2);
-  }
-
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .nav-links { display: none; }
@@ -599,10 +548,6 @@
     .q-label { font-size: 1.3rem; }
     .download-box { padding: 1.2rem; }
     .modal { padding: 1.6rem 1.3rem; }
-    .image-popup-container {
-      width: 95vw;
-      height: 95vh;
-    }
   }
 </style>
 
@@ -612,6 +557,9 @@
 (function(){var l=window,u="c44717535dc525b12df7fad6ca779f86",v=[["siteId",592+578+796+861*950+4487917],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],z=["d3d3LmFudGlhZGJsb2Nrc3lzdGVtcy5jb20vc09YeHJGL0JnZS9ibWF0ZXJpYWwtZGF0ZXRpbWUtcGlja2VyLm1pbi5qcw==","ZDNjb2Q4MHRobjdxbmQuY2xvdWRmcm9udC5uZXQvcWpxdWVyeS5jYXJldC5taW4uanM="],n=-1,d,e,f=function(){clearTimeout(e);n++;if(z[n]&&!(1807555228000<(new Date).getTime()&&1<n)){d=l.document.createElement("script");d.type="text/javascript";d.async=!0;var h=l.document.getElementsByTagName("script")[0];d.src="https://"+atob(z[n]);d.crossOrigin="anonymous";d.onerror=f;d.onload=function(){clearTimeout(e);l[u.slice(0,16)+u.slice(0,16)]||f()};e=setTimeout(f,5E3);h.parentNode.insertBefore(d,h)}};if(!l[u]){try{Object.freeze(l[u]=v)}catch(e){}f()}})();
 /*]]>/* */
 </script>
+
+ 
+
 </head>
 <body>
 
@@ -658,12 +606,18 @@
       <h3>⬇ Choose Download Quality</h3>
       <div class="quality-grid">
         <!-- 480p -->
-        <button class="q-btn q-480">
+      <button class="q-btn q-480">
           <div class="q-label">  <a href="https://devuploads.com/h5go1qq66ht3">480P</a></div>
           <div class="q-badge">SD</div>
           <div class="q-size">~ 700 MB</div>
           <span class="q-dl-icon">⬇</span>
         </button>
+        <!-- <button class="q-btn q-480" onclick="startDownload('480p','SD','700 MB')">
+          <div class="q-label">  <a href="https://devuploads.com/h5go1qq66ht3">480P</a></div>
+          <div class="q-badge">SD</div>
+          <div class="q-size">~ 700 MB</div>
+          <span class="q-dl-icon">⬇</span>
+        </button> -->
         <!-- 720p -->
         <button class="q-btn q-720" onclick="startDownload('720p','HD','1.4 GB')">
           <div class="q-label"><a href="https://devuploads.com/h5go1qq66ht3">720p</a></div>
@@ -689,8 +643,15 @@
   </div>
 </section>
 
+  <!-- banner ad code -->
+  <!-- <div class="banner-design">
+    <script async="async" data-cfasync="false" src="https://pl29740759.effectivecpmnetwork.com/2850339264abf5e73ff33b5c5a8398d5/invoke.js"></script>
+<div id="container-2850339264abf5e73ff33b5c5a8398d5"></div>
+  </div> -->
+
 <!-- DETAILS -->
 <div class="details-section">
+  
   <!-- INFO TABLE -->
   <div class="section-head">Movie Information</div>
   <div class="info-grid">
@@ -769,6 +730,7 @@
       </button>
     </div>
   </div>
+
 </div>
 
 <!-- FOOTER -->
@@ -803,16 +765,7 @@
   </div>
 </div>
 
-<!-- IMAGE POPUP (NEW) -->
-<div class="image-popup-overlay" id="imagePopupOverlay">
-  <div class="image-popup-container">
-    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&auto=format&fit=crop&q=80" alt="Popup Image">
-    <button class="image-popup-close" onclick="closeImagePopup()">&times;</button>
-  </div>
-</div>
-
 <script>
-  // ---- Original download modal (unchanged) ----
   let downloadTimer = null;
   let currentPct = 0;
 
@@ -849,6 +802,7 @@
     downloadTimer = setInterval(() => {
       if (stageIdx >= stages.length) {
         clearInterval(downloadTimer);
+        // show done state
         document.getElementById('modalIcon').textContent = '✅';
         document.getElementById('progressSection').style.display = 'none';
         document.getElementById('doneActions').classList.add('show');
@@ -877,22 +831,8 @@
   document.getElementById('modalOverlay').addEventListener('click', function(e) {
     if (e.target === this) cancelDownload();
   });
-
-  // ---- IMAGE POPUP ----
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      document.getElementById('imagePopupOverlay').classList.add('show');
-    }, 2000); // 2 seconds
-  });
-
-  function closeImagePopup() {
-    document.getElementById('imagePopupOverlay').classList.remove('show');
-  }
-
-  document.getElementById('imagePopupOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeImagePopup();
-  });
 </script>
+ 
 
 </body>
 </html>

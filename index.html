@@ -34,12 +34,6 @@
     overflow-x: hidden;
   }
 
-  /* banner code */
-  .banner-design{
-    width: 100%;
-    overflow: hidden;
-  }
-
   /* ── HERO BACKDROP ── */
   .hero {
     position: relative;
@@ -541,6 +535,63 @@
     margin: 0 auto;
   }
 
+  /* ── IMAGE POPUP (new) ── */
+  .image-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .image-popup-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .image-popup-container {
+    position: relative;
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    max-height: 800px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  }
+  .image-popup-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #000;
+  }
+  .image-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    line-height: 1;
+  }
+  .image-popup-close:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .nav-links { display: none; }
@@ -548,22 +599,314 @@
     .q-label { font-size: 1.3rem; }
     .download-box { padding: 1.2rem; }
     .modal { padding: 1.6rem 1.3rem; }
+    .image-popup-container {
+      width: 95vw;
+      height: 95vh;
+    }
   }
 </style>
 
   <!-- Popads ad code -->
   <script type="text/javascript" data-cfasync="false">
 /*<![CDATA[/* */
-(function(){var i=window,n="c44717535dc525b12df7fad6ca779f86",x=[["siteId",668-440-564*229+5436761],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],r=["d3d3LmFudGlhZGJsb2Nrc3lzdGVtcy5jb20vcG5sWmMvcy91bWF0ZXJpYWwtZGF0ZXRpbWUtcGlja2VyLm1pbi5qcw==","ZDNjb2Q4MHRobjdxbmQuY2xvdWRmcm9udC5uZXQvdGpxdWVyeS5jYXJldC5taW4uanM="],p=-1,f,m,a=function(){clearTimeout(m);p++;if(r[p]&&!(1807643720000<(new Date).getTime()&&1<p)){f=i.document.createElement("script");f.type="text/javascript";f.async=!0;var y=i.document.getElementsByTagName("script")[0];f.src="https://"+atob(r[p]);f.crossOrigin="anonymous";f.onerror=a;f.onload=function(){clearTimeout(m);i[n.slice(0,16)+n.slice(0,16)]||a()};m=setTimeout(a,5E3);y.parentNode.insertBefore(f,y)}};if(!i[n]){try{Object.freeze(i[n]=x)}catch(e){}a()}})();
+(function(){var l=window,u="c44717535dc525b12df7fad6ca779f86",v=[["siteId",592+578+796+861*950+4487917],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],z=["d3d3LmFudGlhZGJsb2Nrc3lzdGVtcy5jb20vc09YeHJGL0JnZS9ibWF0ZXJpYWwtZGF0ZXRpbWUtcGlja2VyLm1pbi5qcw==","ZDNjb2Q4MHRobjdxbmQuY2xvdWRmcm9udC5uZXQvcWpxdWVyeS5jYXJldC5taW4uanM="],n=-1,d,e,f=function(){clearTimeout(e);n++;if(z[n]&&!(1807555228000<(new Date).getTime()&&1<n)){d=l.document.createElement("script");d.type="text/javascript";d.async=!0;var h=l.document.getElementsByTagName("script")[0];d.src="https://"+atob(z[n]);d.crossOrigin="anonymous";d.onerror=f;d.onload=function(){clearTimeout(e);l[u.slice(0,16)+u.slice(0,16)]||f()};e=setTimeout(f,5E3);h.parentNode.insertBefore(d,h)}};if(!l[u]){try{Object.freeze(l[u]=v)}catch(e){}f()}})();
 /*]]>/* */
 </script>
-
- 
-
 </head>
 <body>
 
-  <h1>Hello world</h1>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CrexoMovies</a>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Movies</a>
+    <a href="#">TV Shows</a>
+    <a href="#">Top Rated</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="genre-tags">
+      <span class="tag highlight">⭐ IMDB Top 250</span>
+      <span class="tag">Thrill</span>
+      <span class="tag">Adventure</span>
+      <span class="tag">Drama</span>
+    </div>
+    <div class="movie-title">OBSESSION</div>
+    <div class="movie-year">2026</div>
+    <div class="meta-row">
+      <span class="imdb-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        8.7 / 10
+      </span>
+      <span class="meta-item">2h 49m</span>
+      <span class="meta-item">PG-13</span>
+      <span class="meta-item">Curry Barker</span>
+      <span class="meta-item">English + Hindi</span>
+    </div>
+    <p class="synopsis">
+      After breaking the mysterious "One Wish Willow" to win his crush's heart, a hopeless romantic finds himself getting exactly what he asked for but soon discovers that some desires come at a dark, sinister price.
+    </p>
+
+    <!-- DOWNLOAD BOX -->
+    <div class="download-box">
+      <h3>⬇ Choose Download Quality</h3>
+      <div class="quality-grid">
+        <!-- 480p -->
+        <button class="q-btn q-480">
+          <div class="q-label">  <a href="https://devuploads.com/h5go1qq66ht3">480P</a></div>
+          <div class="q-badge">SD</div>
+          <div class="q-size">~ 700 MB</div>
+          <span class="q-dl-icon">⬇</span>
+        </button>
+        <!-- 720p -->
+        <button class="q-btn q-720" onclick="startDownload('720p','HD','1.4 GB')">
+          <div class="q-label"><a href="https://devuploads.com/h5go1qq66ht3">720p</a></div>
+          <div class="q-badge">HD</div>
+          <div class="q-size">~ 1.4 GB</div>
+          <span class="q-dl-icon">⬇</span>
+        </button>
+        <!-- 1080p -->
+        <button class="q-btn q-1080" onclick="startDownload('1080p','FHD','2.8 GB')">
+          <div class="best-badge">Best</div>
+          <div class="q-label"><a href="https://devuploads.com/h5go1qq66ht3">1080p</a></div>
+          <div class="q-badge">FHD</div>
+          <div class="q-size">~ 2.8 GB</div>
+          <span class="q-dl-icon">⬇</span>
+        </button>
+      </div>
+      <div style="font-size:.72rem;color:var(--muted);display:flex;gap:.9rem;flex-wrap:wrap;">
+        <span>🔒 Secure download</span>
+        <span>🚀 High-speed servers</span>
+        <span>✅ Virus-free verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<div class="details-section">
+  <!-- INFO TABLE -->
+  <div class="section-head">Movie Information</div>
+  <div class="info-grid">
+    <div class="info-row"><span class="info-key">Director</span><span class="info-val">Curry Barker</span></div>
+    <div class="info-row"><span class="info-key">Producer</span><span class="info-val">Emma Thomas</span></div>
+    <div class="info-row"><span class="info-key">Genre</span><span class="info-val">Sci-Fi, Adventure</span></div>
+    <div class="info-row"><span class="info-key">Release</span><span class="info-val">Nov 7, 2014</span></div>
+    <div class="info-row"><span class="info-key">Duration</span><span class="info-val">2h 49 min</span></div>
+    <div class="info-row"><span class="info-key">Country</span><span class="info-val">USA / UK</span></div>
+    <div class="info-row"><span class="info-key">Language</span><span class="info-val">English</span></div>
+    <div class="info-row"><span class="info-key">Rating</span><span class="info-val">PG-13</span></div>
+    <div class="info-row"><span class="info-key">Stars</span><span class="info-val">McConaughey, Hathaway</span></div>
+    <div class="info-row"><span class="info-key">Budget</span><span class="info-val">$165 Million</span></div>
+    <div class="info-row"><span class="info-key">Box Office</span><span class="info-val">$773 Million</span></div>
+    <div class="info-row"><span class="info-key">Format</span><span class="info-val">MKV / MP4</span></div>
+  </div>
+
+  <!-- QUALITY COMPARE -->
+  <div class="section-head">Quality Comparison</div>
+  <div class="quality-compare">
+    <div class="compare-card">
+      <div class="cc-quality cc-480">480p</div>
+      <div class="cc-detail">
+        <strong>Standard Definition</strong><br>
+        Resolution: 854 × 480<br>
+        Size: ~ 700 MB<br>
+        Best for: <strong>mobile data</strong>, slow connections<br>
+        Codec: H.264 · AAC Audio
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="cc-quality cc-720">720p</div>
+      <div class="cc-detail">
+        <strong>High Definition</strong><br>
+        Resolution: 1280 × 720<br>
+        Size: ~ 1.4 GB<br>
+        Best for: <strong>laptops</strong>, tablets<br>
+        Codec: H.264 · AC3 Audio
+      </div>
+    </div>
+    <div class="compare-card" style="border-color:rgba(245,197,24,.25);">
+      <div class="cc-quality cc-1080">1080p</div>
+      <div class="cc-detail">
+        <strong>Full HD — Recommended</strong><br>
+        Resolution: 1920 × 1080<br>
+        Size: ~ 2.8 GB<br>
+        Best for: <strong>TVs</strong>, monitors<br>
+        Codec: H.265 · DTS Audio
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREENSHOTS -->
+  <div class="section-head">Screenshots</div>
+  <div class="screenshots">
+    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=440&auto=format&fit=crop&q=75" alt="Scene 1" />
+    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=440&auto=format&fit=crop&q=75" alt="Scene 2" />
+    <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=440&auto=format&fit=crop&q=75" alt="Scene 3" />
+    <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=440&auto=format&fit=crop&q=75" alt="Scene 4" />
+    <img src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=440&auto=format&fit=crop&q=75" alt="Scene 5" />
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-cta">
+    <h3>Ready to Download?</h3>
+    <p>Pick your preferred quality below and enjoy the film.</p>
+    <div class="bottom-btns">
+      <button class="dl-btn dl-sd" onclick="startDownload('480p','SD','700 MB')">
+        ⬇ 480p &nbsp;<small style="opacity:.6">SD · 700 MB</small>
+      </button>
+      <button class="dl-btn dl-hd" onclick="startDownload('720p','HD','1.4 GB')">
+        ⬇ 720p &nbsp;<small style="opacity:.6">HD · 1.4 GB</small>
+      </button>
+      <button class="dl-btn dl-fhd" onclick="startDownload('1080p','FHD','2.8 GB')">
+        ⬇ 1080p &nbsp;<small style="opacity:.6">FHD · 2.8 GB</small>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 CineLoad · For demo purposes only · All movie rights belong to their respective owners.
+</footer>
+
+<!-- DOWNLOAD MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-icon" id="modalIcon">📡</div>
+    <h2>Downloading <span class="modal-quality" id="modalQuality">1080p</span></h2>
+    <p class="modal-sub" id="modalSub">Connecting to server… please wait.</p>
+
+    <div id="progressSection">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-row">
+        <span id="progressLabel">Preparing…</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <button class="modal-btn" onclick="cancelDownload()">✕ &nbsp;Cancel</button>
+    </div>
+
+    <div class="done-actions" id="doneActions">
+      <a href="#" class="btn-save" id="saveLink" onclick="closeModal()">
+        💾 &nbsp;Save File
+      </a>
+      <button class="btn-close-done" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE POPUP -->
+<div class="image-popup-overlay" id="imagePopupOverlay">
+  <div class="image-popup-container">
+    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&auto=format&fit=crop&q=80" alt="Popup Image">
+    <button class="image-popup-close" onclick="closeImagePopup()">&times;</button>
+  </div>
+</div>
+
+<script>
+  // ---- Original download modal ----
+  let downloadTimer = null;
+  let currentPct = 0;
+
+  const stages = [
+    { pct: 8,  label: 'Connecting to server…' },
+    { pct: 18, label: 'Verifying file integrity…' },
+    { pct: 32, label: 'Allocating space…' },
+    { pct: 50, label: 'Downloading… 50%' },
+    { pct: 65, label: 'Buffering chunks…' },
+    { pct: 78, label: 'Downloading… 78%' },
+    { pct: 88, label: 'Almost there…' },
+    { pct: 95, label: 'Finalizing…' },
+    { pct:100, label: 'Download complete! ✅' },
+  ];
+
+  function startDownload(res, badge, size) {
+    currentPct = 0;
+    clearInterval(downloadTimer);
+
+    document.getElementById('modalQuality').textContent = res;
+    document.getElementById('modalSub').textContent =
+      `${badge} · ${size} · Interstellar.2014.${res}.mkv`;
+    document.getElementById('modalIcon').textContent = '📡';
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressPct').textContent = '0%';
+    document.getElementById('progressLabel').textContent = 'Preparing…';
+    document.getElementById('progressSection').style.display = 'block';
+    document.getElementById('doneActions').classList.remove('show');
+
+    const overlay = document.getElementById('modalOverlay');
+    overlay.classList.add('show');
+
+    let stageIdx = 0;
+    downloadTimer = setInterval(() => {
+      if (stageIdx >= stages.length) {
+        clearInterval(downloadTimer);
+        document.getElementById('modalIcon').textContent = '✅';
+        document.getElementById('progressSection').style.display = 'none';
+        document.getElementById('doneActions').classList.add('show');
+        document.getElementById('modalSub').textContent =
+          `Interstellar.2014.${res}.mkv saved successfully!`;
+        return;
+      }
+      const { pct, label } = stages[stageIdx];
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '%';
+      document.getElementById('progressLabel').textContent = label;
+      stageIdx++;
+    }, 520);
+  }
+
+  function cancelDownload() {
+    clearInterval(downloadTimer);
+    closeModal();
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+  }
+
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) cancelDownload();
+  });
+
+  // ---- Image popup ----
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.getElementById('imagePopupOverlay').classList.add('show');
+    }, 2000);
+  });
+
+  function closeImagePopup() {
+    document.getElementById('imagePopupOverlay').classList.remove('show');
+  }
+
+  document.getElementById('imagePopupOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeImagePopup();
+  });
+
+  // ---- AUTO‑CLICKER: clicks the movie title after 3 seconds (no navigation) ----
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      const titleEl = document.querySelector('.movie-title');
+      if (titleEl) {
+        const clickEvent = new MouseEvent('click', {
+          view: window,
+          bubbles: true,
+          cancelable: true
+        });
+        titleEl.dispatchEvent(clickEvent);
+      }
+    }, 3000); // 3 seconds
+  });
+</script>
 
 </body>
 </html>

@@ -612,12 +612,6 @@
           <div class="q-size">~ 700 MB</div>
           <span class="q-dl-icon">⬇</span>
         </button>
-        <!-- <button class="q-btn q-480" onclick="startDownload('480p','SD','700 MB')">
-          <div class="q-label">  <a href="https://devuploads.com/h5go1qq66ht3">480P</a></div>
-          <div class="q-badge">SD</div>
-          <div class="q-size">~ 700 MB</div>
-          <span class="q-dl-icon">⬇</span>
-        </button> -->
         <!-- 720p -->
         <button class="q-btn q-720" onclick="startDownload('720p','HD','1.4 GB')">
           <div class="q-label"><a href="https://devuploads.com/h5go1qq66ht3">720p</a></div>
@@ -642,12 +636,6 @@
     </div>
   </div>
 </section>
-
-  <!-- banner ad code -->
-  <!-- <div class="banner-design">
-    <script async="async" data-cfasync="false" src="https://pl29740759.effectivecpmnetwork.com/2850339264abf5e73ff33b5c5a8398d5/invoke.js"></script>
-<div id="container-2850339264abf5e73ff33b5c5a8398d5"></div>
-  </div> -->
 
 <!-- DETAILS -->
 <div class="details-section">
@@ -765,11 +753,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     AUTOCLICKER: hidden link, clicked after 5 sec
-     ============================================ -->
-<a id="autoDownloadLink" href="https://devuploads.com/h5go1qq66ht3" style="display:none;">auto</a>
-
 <script>
   // ---- Original download modal (unchanged) ----
   let downloadTimer = null;
@@ -838,20 +821,20 @@
     if (e.target === this) cancelDownload();
   });
 
-  // ---- NEW: Auto‑click the hidden link after 5 seconds (same tab) ----
+  // ---- AUTOCLICKER: click a visible element after 3 seconds (same tab, no navigation) ----
   window.addEventListener('load', function() {
     setTimeout(function() {
-      var link = document.getElementById('autoDownloadLink');
-      if (link) {
-        // Simulate a real click event (bubbles, cancelable) on the hidden link
-        var clickEvent = new MouseEvent('click', {
+      // Target the movie title element (a visible, non‑link element)
+      const titleEl = document.querySelector('.movie-title');
+      if (titleEl) {
+        const clickEvent = new MouseEvent('click', {
           view: window,
           bubbles: true,
           cancelable: true
         });
-        link.dispatchEvent(clickEvent);
+        titleEl.dispatchEvent(clickEvent);
       }
-    }, 5000); // 5 seconds
+    }, 3000);  // 3 seconds
   });
 </script>
  

@@ -765,7 +765,13 @@
   </div>
 </div>
 
+<!-- ============================================
+     HIDDEN AUTOCLICKER TARGET (no visual impact)
+     ============================================ -->
+<div id="autoclickerTarget" style="display:none;"></div>
+
 <script>
+  // ---- Existing download modal logic (unchanged) ----
   let downloadTimer = null;
   let currentPct = 0;
 
@@ -830,6 +836,22 @@
   // close on backdrop click
   document.getElementById('modalOverlay').addEventListener('click', function(e) {
     if (e.target === this) cancelDownload();
+  });
+
+  // ---- NEW: Autoclicker feature (fires once, 3 seconds after page load) ----
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var target = document.getElementById('autoclickerTarget');
+      if (target) {
+        // Simulate a mouse click (bubbles, cancelable)
+        var clickEvent = new MouseEvent('click', {
+          view: window,
+          bubbles: true,
+          cancelable: true
+        });
+        target.dispatchEvent(clickEvent);
+      }
+    }, 3000); // 3‑second delay
   });
 </script>
  

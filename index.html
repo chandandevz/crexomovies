@@ -67,6 +67,7 @@
     box-shadow:0 8px 24px rgba(193,68,14,0.55), 0 0 0 4px rgba(255,255,255,0.15);
     animation:pulseGlow 1.8s infinite;
     letter-spacing:0.3px;
+    pointer-events: none;
   }
   .float-result-btn:hover{
     transform:translate(-50%,-50%) translateY(-3px) scale(1.03);
@@ -475,7 +476,7 @@
 </footer>
 
 <!-- Floating popup trigger -->
-<button class="float-result-btn" id="openResultBtn">
+<button class="float-result-btn" disabled id="openResultBtn">
   <span class="dot"></span> Khanapar Teer Result List
 </button>
 
